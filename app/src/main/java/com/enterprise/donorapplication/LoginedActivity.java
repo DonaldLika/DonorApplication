@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
+
+import com.enterprise.Session.SessionManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import org.apache.http.HttpResponse;
@@ -31,8 +33,9 @@ public class LoginedActivity extends FragmentActivity {
     private final static String ACCESSINTOKEN="accesstoken";
 
     private Button scanButton;
+    private Button logoutButton;
+    private SessionManager session;
 
-    private boolean islogined;
 
 
     @Override
@@ -40,9 +43,22 @@ public class LoginedActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logined);
         scanButton = (Button) findViewById(R.id.scanqr);
-        islogined = true;
+        logoutButton=(Button)findViewById(R.id.logout);
 
         final IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn())
+        {
+            this.logoutUser();
+        }
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               logoutUser();
+            }
+        });
 
         scanButton.setOnClickListener(new View.OnClickListener() {
 
@@ -69,21 +85,12 @@ public class LoginedActivity extends FragmentActivity {
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (scanningResult != null) {
                 String qrStr = scanningResult.getContents();
-                if(islogined == false)
-                {
-                    showText("User not Logged In");
-
-                }
-                else
-                {
-                    sendToServer(ACCESSINTOKEN, qrStr);
-                }
+                sendToServer(ACCESSINTOKEN, qrStr);
                 super.onActivityResult(requestCode, resultCode, data);
             }
             else
             {
                 showText("No QR scan data received");
-
 
             }
 
@@ -120,6 +127,13 @@ public class LoginedActivity extends FragmentActivity {
             e.printStackTrace();
         }
 
+    }
+    private void logoutUser() {
+        session.setLogin(false);
+        // Ktheu tek faqja faqja kryesore
+        Intent intent = new Intent(LoginedActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 
