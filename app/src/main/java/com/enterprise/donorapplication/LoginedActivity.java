@@ -64,7 +64,13 @@ public class LoginedActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                scanIntegrator.initiateScan();
+                try {
+                    scanIntegrator.initiateScan();
+                }
+                catch(Exception e)
+                {
+                    showText("Pati Probleme");
+                }
             }
         });
     }

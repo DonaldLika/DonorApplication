@@ -176,7 +176,6 @@ public class MainActivity extends FragmentActivity {
 
                 finish();
             } else {
-
                 pDialog.dismiss();
                 loginErrorMsg.setText("Incorrect username/password");
             }
