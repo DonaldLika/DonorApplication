@@ -3,6 +3,7 @@ package com.enterprise.donorapplication;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Button;
 import android.view.View;
@@ -34,6 +35,7 @@ public class LoginedActivity extends FragmentActivity {
 
     private Button scanButton;
     private Button logoutButton;
+    private Button sendMessage;
     private SessionManager session;
 
 
@@ -44,6 +46,7 @@ public class LoginedActivity extends FragmentActivity {
         setContentView(R.layout.logined);
         scanButton = (Button) findViewById(R.id.scanqr);
         logoutButton=(Button)findViewById(R.id.logout);
+        sendMessage=(Button)findViewById(R.id.sendmsg);
 
         final IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 
@@ -61,7 +64,6 @@ public class LoginedActivity extends FragmentActivity {
         });
 
         scanButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 try {
@@ -69,8 +71,18 @@ public class LoginedActivity extends FragmentActivity {
                 }
                 catch(Exception e)
                 {
-                    showText("Pati Probleme");
+                    showText("Problem! Try again!");
                 }
+            }
+        });
+
+        sendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SmsManager smsmanager = SmsManager.getDefault();
+                smsmanager.sendTextMessage("6505551212",null,"Hello there",null,null);
+
+
             }
         });
     }
@@ -81,7 +93,7 @@ public class LoginedActivity extends FragmentActivity {
         toast.show();
     }
 
-    @Override
+         @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Log.v("####","Request:"+requestCode+ "resultCOde:"+resultCode+" Data:"+data);

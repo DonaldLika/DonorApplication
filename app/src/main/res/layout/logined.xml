@@ -10,27 +10,47 @@
 
 
     <Button
-        android:id="@+id/scanqr"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan QR Code"
-        android:layout_marginTop="165dp"
-        android:elevation="0dp"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
         android:id="@+id/logout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Log-out"
+        android:textColor="@color/white"
+        android:background="@color/shadow_red"
         android:elevation="0dp"
         style="@style/Widget.AppCompat.Button"
-        android:layout_below="@+id/scanqr"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/sendmsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Message"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:background="@color/shadow_red"
+        android:elevation="0dp"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_gravity="center"
+        android:layout_marginBottom="115dp"
+        android:layout_above="@+id/logout"
+        android:layout_alignLeft="@+id/scanqr"
+        android:layout_alignStart="@+id/scanqr" />
+
+    <Button
+        android:id="@+id/scanqr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan QR Code"
+        android:textSize="12sp"
+        android:background="@color/shadow_red"
+        android:textColor="@color/white"
+        android:elevation="0dp"
+        android:layout_gravity="center"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_marginBottom="60dp"
+        android:layout_above="@+id/sendmsg"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
