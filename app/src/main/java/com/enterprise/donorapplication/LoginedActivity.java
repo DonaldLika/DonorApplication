@@ -3,8 +3,11 @@ package com.enterprise.donorapplication;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
@@ -27,7 +30,7 @@ import java.io.UnsupportedEncodingException;
  * Created by donald on 17-01-08.
  */
 
-public class LoginedActivity extends FragmentActivity {
+public class LoginedActivity extends AppCompatActivity {
 
     private final static String SERVER_URL="serverIP";
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -35,7 +38,6 @@ public class LoginedActivity extends FragmentActivity {
 
     private Button scanButton;
     private Button logoutButton;
-    private Button sendMessage;
     private SessionManager session;
 
 
@@ -46,7 +48,6 @@ public class LoginedActivity extends FragmentActivity {
         setContentView(R.layout.logined);
         scanButton = (Button) findViewById(R.id.scanqr);
         logoutButton=(Button)findViewById(R.id.logout);
-        sendMessage=(Button)findViewById(R.id.sendmsg);
 
         final IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 
@@ -76,15 +77,13 @@ public class LoginedActivity extends FragmentActivity {
             }
         });
 
-        sendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SmsManager smsmanager = SmsManager.getDefault();
-                smsmanager.sendTextMessage("6505551212",null,"Hello there",null,null);
+    }
 
-
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void showText(String message) {
