@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
@@ -83,6 +84,31 @@ public class LoginedActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        if (id == R.id.scan) {
+
+            Intent intent = new Intent(this,Scan.class);
+            this.startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.notify) {
+            Intent intent = new Intent(this,Notify.class);
+            this.startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
 
     private void showText(String message) {
         Toast toast = Toast.makeText(getApplicationContext(),
