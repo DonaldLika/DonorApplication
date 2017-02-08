@@ -197,7 +197,7 @@ public class MainActivity extends FragmentActivity {
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this,
-                R.style.AppTheme);
+                R.style.MyMaterialTheme);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -208,9 +208,7 @@ public class MainActivity extends FragmentActivity {
         if(email.equals("test@hotmail.com") && password.equals("password"))
         {
             session.setLogin(true);
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    LoginedActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginedActivity.class);
             startActivity(intent);
             finish();
         } else {

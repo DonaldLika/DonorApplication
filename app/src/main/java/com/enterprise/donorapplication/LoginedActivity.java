@@ -1,34 +1,36 @@
 package com.enterprise.donorapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
+import android.content.Intent;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import com.enterprise.donorapplication.R;
+import com.enterprise.frament.WelcomeFragment;
+import com.enterprise.frament.ScanFragment;
+import com.enterprise.frament.NotifyFragment;
 import com.enterprise.Session.SessionManager;
 
 
-
-
-/**
- * Created by donald on 17-01-08.
- */
-
 public class LoginedActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     private SessionManager session;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logined);
-
 
 
         session = new SessionManager(getApplicationContext());
@@ -39,41 +41,53 @@ public class LoginedActivity extends AppCompatActivity {
         }
 
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
-        return super.onCreateOptionsMenu(menu);
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new WelcomeFragment(), "Welcome");
+        adapter.addFragment(new ScanFragment(), "Scan");
+        adapter.addFragment(new NotifyFragment(), "Notify");
+        viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        int id = item.getItemId();
-
-
-        if (id == R.id.scan) {
-
-            Intent intent = new Intent(this,Scan.class);
-            this.startActivity(intent);
-            return true;
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
         }
 
-        if (id == R.id.notify) {
-            Intent intent = new Intent(this,Notify.class);
-            this.startActivity(intent);
-            return true;
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
         }
 
-        if (id == R.id.logout) {
-            logoutUser();
-            return true;
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
         }
 
-        return super.onOptionsItemSelected(item);
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
 
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
     public  void logoutUser() {
@@ -84,4 +98,3 @@ public class LoginedActivity extends AppCompatActivity {
         finish();
     }
 }
-

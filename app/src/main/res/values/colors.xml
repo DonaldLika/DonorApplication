@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#af3232</color>
-    <color name="colorPrimaryDark">#af3232</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="darkred">#FFCC0000</color>
-    <color name="white">#ffffff</color>
-    <color name="shadow_red">#af3232</color>
+    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
 
 </resources>
