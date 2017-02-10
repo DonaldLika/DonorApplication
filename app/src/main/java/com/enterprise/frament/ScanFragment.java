@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enterprise.donorapplication.R;
@@ -26,16 +25,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-public class ScanFragment extends Fragment {
+public class ScanFragment extends Fragment  {
 
     private final static String SERVER_URL="serverIP";
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
     private final static String ACCESSINTOKEN="accesstoken";
 
-    Button scanButton;
-    TextView show_tv;
-    Button confirm;
 
+
+    Button scanButton;
 
     public ScanFragment() {
 
@@ -47,8 +45,8 @@ public class ScanFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_scan,container,false);
 
         scanButton = (Button) rootview.findViewById(R.id.button_scan);
-        show_tv = (TextView) rootview.findViewById(R.id.textView2);
-        confirm = (Button)rootview.findViewById(R.id.button_send);
+
+
 
         final IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
 
@@ -56,7 +54,10 @@ public class ScanFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+                    scanIntegrator.setPrompt("Scan");
+                    scanIntegrator.setCameraId(0);
                     scanIntegrator.initiateScan();
+
                 }
                 catch(Exception e)
                 {
