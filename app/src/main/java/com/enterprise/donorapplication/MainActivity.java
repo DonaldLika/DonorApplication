@@ -9,14 +9,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enterprise.Session.SessionManager;
-import com.enterprise.donorapplication.R;
 
 import org.json.JSONObject;
 
@@ -30,7 +29,7 @@ public class MainActivity extends FragmentActivity {
 
     private static final String TAG = "LoginActivity";
 
-    private EditText _emailText;
+    private EditText _usernameText;
     private EditText _passwordText;
     private Button _loginButton;
     private TextView loginErrorMsg;
@@ -45,7 +44,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _emailText=(EditText)findViewById(R.id.input_email);
+
+        _usernameText=(EditText)findViewById(R.id.input_email);
         _passwordText=(EditText)findViewById(R.id.input_password);
         _loginButton=(Button)findViewById(R.id.btn_login);
         loginErrorMsg=(TextView) findViewById(R.id.loginErrorMsg);
@@ -93,6 +93,7 @@ public class MainActivity extends FragmentActivity {
 
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
             if (netInfo != null && netInfo.isConnected()) {
                 try {
                     URL url = new URL("http://www.google.com");
@@ -132,16 +133,18 @@ public class MainActivity extends FragmentActivity {
 
         private ProgressDialog pDialog;
 
-        String email, password;
+        String username, password;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            _emailText = (EditText) findViewById(R.id.input_email);
+            _usernameText = (EditText) findViewById(R.id.input_email);
             _passwordText = (EditText) findViewById(R.id.input_password);
-            email = _emailText.getText().toString();
+
+            username = _usernameText.getText().toString();
             password = _passwordText.getText().toString();
+
             pDialog = new ProgressDialog(MainActivity.this);
             pDialog.setTitle("Contacting Servers");
             pDialog.setMessage("Logging in ...");
@@ -152,7 +155,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            if (email.equals("test@hotmail.com") && password.equals("password")) {
+            if (username.equals("test@hotmail.com") && password.equals("password")) {
                 return new JSONObject();
             } else {
                 return null;
@@ -202,18 +205,17 @@ public class MainActivity extends FragmentActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
+        String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if(email.equals("test@hotmail.com") && password.equals("password"))
+        if(username.equals("test@hotmail.com") && password.equals("password"))
         {
             session.setLogin(true);
             Intent intent = new Intent(MainActivity.this, LoginedActivity.class);
             startActivity(intent);
             finish();
         } else {
-            Toast.makeText(getApplicationContext(),
-                    "Logini nuk u krye me sukses", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Logini nuk u krye me sukses", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -221,14 +223,14 @@ public class MainActivity extends FragmentActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
+        String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("Enter a valid email address");
+        if (username.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            _usernameText.setError("Enter a valid username");
             valid = false;
         } else {
-            _emailText.setError(null);
+            _usernameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {

@@ -3,6 +3,7 @@ package com.enterprise.Session;
 /**
  * Created by Donald on 1/9/2017.
  */
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -15,13 +16,14 @@ public class SessionManager {
 
     SharedPreferences pref;
 
-    Editor editor;
-    Context _context;
+    private Editor editor;
+    private Context _context;
 
     int PRIVATE_MODE = 0;
 
     private static final String PREF_NAME = "AndroidHiveLogin";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+    public static final String KEY_NAME = "name";
 
 
 
@@ -30,6 +32,8 @@ public class SessionManager {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+
+
 
     public void setLogin(boolean isLoggedIn) {
 

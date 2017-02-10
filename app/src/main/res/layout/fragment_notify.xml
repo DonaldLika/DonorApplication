@@ -1,14 +1,92 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:scrollbarStyle="outsideOverlay"
     tools:context="com.enterprise.frament.NotifyFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Someone needs blood?"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/navigationBarColor"
+            android:textSize="18dp"
+            />
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:text="Select city"
+                android:textColor="@color/colorPrimary"
+                android:layout_toLeftOf="@+id/spinner_city" />
+
+            <Spinner
+                android:id="@+id/spinner_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:entries="@array/country_array" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:text="Select blood type"
+                android:textColor="@color/colorPrimary"
+                android:layout_toLeftOf="@+id/spinner_blood" />
+
+            <Spinner
+                android:id="@+id/spinner_blood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:entries="@array/blood_array" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notify"
+            android:textColor="@color/textColorPrimary"
+            android:background="@color/colorPrimary"/>
+    </LinearLayout>
+</ScrollView>

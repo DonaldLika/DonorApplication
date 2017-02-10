@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginedActivity">
 
-    <item
-        android:id="@+id/scan"
-        android:title="Scan"
-        android:showAsAction="always"
-
-        />
-    <item
-        android:id="@+id/notify"
-        android:title="Notify"
-        android:showAsAction="always"
-        />
     <item
         android:id="@+id/logout"
         android:title="Logout"
-        android:showAsAction="never"/>
+        android:icon="@drawable/ic_power_settings_new_black_24dp"
+        android:showAsAction="ifRoom|always"/>
 </menu>
