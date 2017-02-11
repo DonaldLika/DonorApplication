@@ -66,10 +66,7 @@ public class OAuth2Config {
 			return this;
 		}
 		
-		public OAuth2ConfigBuilder scope(String scope) {
-			this.scope = scope;
-			return this;
-		}
+
 		public OAuth2Config build () {
 			return new OAuth2Config(this); 
 		}

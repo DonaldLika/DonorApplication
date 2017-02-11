@@ -14,9 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.enterprise.Session.SessionManager;
-import com.enterprise.frament.NotifyFragment;
-import com.enterprise.frament.ScanFragment;
-import com.enterprise.frament.WelcomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +123,7 @@ public class LoginedActivity extends AppCompatActivity {
     }
 
     public  void logoutUser() {
-        session.setLogin(false);
+        session.setLogin(false,"null");
         // Ktheu tek faqja faqja kryesore
         Intent intent = new Intent(LoginedActivity.this, MainActivity.class);
         startActivity(intent);

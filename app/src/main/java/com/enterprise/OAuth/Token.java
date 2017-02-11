@@ -37,9 +37,7 @@ public class Token {
 		}
 
 
-		public String getAccessToken() {
-			return accessToken;
-		}
+		public String getAccessToken() { return accessToken; }
 		
 		public boolean isExpired() {
 		 return (System.currentTimeMillis() >= this.getExpiresAt()) ? true : false;

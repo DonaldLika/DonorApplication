@@ -23,7 +23,7 @@ public class SessionManager {
 
     private static final String PREF_NAME = "AndroidHiveLogin";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-    public static final String KEY_NAME = "name";
+
 
 
 
@@ -35,9 +35,11 @@ public class SessionManager {
 
 
 
-    public void setLogin(boolean isLoggedIn) {
+    public void setLogin(boolean isLoggedIn,String username) {
 
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
+
+        editor.putString("username",username);
 
         // commit changes
         editor.commit();
@@ -50,4 +52,10 @@ public class SessionManager {
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
+    public String getUsername()
+    {
+        return pref.getString("username","null");
+    }
+
+
 }

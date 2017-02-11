@@ -7,13 +7,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.enterprise.Session.SessionManager;
 
@@ -24,8 +23,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.enterprise.OAuth.OAuthUtils.getAccessToken;
 
-public class MainActivity extends FragmentActivity {
+
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
@@ -45,7 +46,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        _usernameText=(EditText)findViewById(R.id.input_email);
+        _usernameText=(EditText)findViewById(R.id.input_username);
         _passwordText=(EditText)findViewById(R.id.input_password);
         _loginButton=(Button)findViewById(R.id.btn_login);
         loginErrorMsg=(TextView) findViewById(R.id.loginErrorMsg);
@@ -139,7 +140,7 @@ public class MainActivity extends FragmentActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            _usernameText = (EditText) findViewById(R.id.input_email);
+            _usernameText = (EditText) findViewById(R.id.input_username);
             _passwordText = (EditText) findViewById(R.id.input_password);
 
             username = _usernameText.getText().toString();
@@ -155,11 +156,11 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            if (username.equals("test@hotmail.com") && password.equals("password")) {
+         //ececute method and check return
+
+
                 return new JSONObject();
-            } else {
-                return null;
-            }
+
         }
 
         @Override
@@ -171,7 +172,7 @@ public class MainActivity extends FragmentActivity {
                 /**
                  *Nqs logini eshte ne regull atehere ridrejtoje tek faqja tjeter
                  **/
-                session.setLogin(true);
+                session.setLogin(true,username);
                 Intent upanel = new Intent(getApplicationContext(), LoginedActivity.class);
                 upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 pDialog.dismiss();
@@ -208,16 +209,13 @@ public class MainActivity extends FragmentActivity {
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if(username.equals("test@hotmail.com") && password.equals("password"))
-        {
-            session.setLogin(true);
+
+            getAccessToken(username,password);
             Intent intent = new Intent(MainActivity.this, LoginedActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), "Logini nuk u krye me sukses", Toast.LENGTH_LONG).show();
         }
-    }
+
 
 
     public boolean validate() {
@@ -226,7 +224,7 @@ public class MainActivity extends FragmentActivity {
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (username.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+        if (username.isEmpty()) {
             _usernameText.setError("Enter a valid username");
             valid = false;
         } else {

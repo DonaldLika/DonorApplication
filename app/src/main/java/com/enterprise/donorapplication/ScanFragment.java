@@ -1,4 +1,4 @@
-package com.enterprise.frament;
+package com.enterprise.donorapplication;
 
 
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.enterprise.donorapplication.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -54,8 +53,7 @@ public class ScanFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 try {
-                    scanIntegrator.setPrompt("Scan");
-                    scanIntegrator.setCameraId(0);
+
                     scanIntegrator.initiateScan();
 
                 }
@@ -83,7 +81,7 @@ public class ScanFragment extends Fragment  {
         {
 
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (scanningResult != null) {
+            if (scanningResult.getContents() != null) {
                 String qrStr = scanningResult.getContents();
                 sendToServer(ACCESSINTOKEN, qrStr);
                 super.onActivityResult(requestCode, resultCode, data);

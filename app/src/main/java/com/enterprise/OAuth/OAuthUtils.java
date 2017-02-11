@@ -1,18 +1,7 @@
 package com.enterprise.OAuth;
 
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import android.util.Base64;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,7 +9,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -34,17 +22,27 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import android.util.Base64;
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class OAuthUtils {
 
 	public static String getProtectedResource(OAuth2Client client, Token token, String path) {
 		
 		String resourceURL = client.getSite() + path;
-		HttpGet get = new HttpGet(resourceURL);
+		HttpPost get = new HttpPost(resourceURL);
 		get.addHeader(OAuthConstants.AUTHORIZATION,
-				getAuthorizationHeaderForAccessToken(token
-						.getAccessToken()));
+				getAuthorizationHeaderForAccessToken(token.getAccessToken()));
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpResponse response = null;
 		String responseString = "";
@@ -80,19 +78,19 @@ public class OAuthUtils {
 		return responseString;
 	}
 
-	public static Token getAccessToken(OAuth2Config oauthDetails) {
-		HttpPost post = new HttpPost(oauthDetails.getTokenEndPointUrl());
-		String clientId = oauthDetails.getClientId();
-		String clientSecret = oauthDetails.getClientSecret();
-		String scope = oauthDetails.getScope();
+	public static Token getAccessToken(String username,String password) {
+		HttpPost post = new HttpPost("http://192.168.0.53:8899/userauth/oauth/token");
+		String clientId = "mobile";
+		String clientSecret = "mobilesecret";
+
 
 		List<BasicNameValuePair> parametersBody = new ArrayList<BasicNameValuePair>();
 		parametersBody.add(new BasicNameValuePair(OAuthConstants.GRANT_TYPE,
-				oauthDetails.getGrantType()));
+				"password"));
 		parametersBody.add(new BasicNameValuePair(OAuthConstants.USERNAME,
-				oauthDetails.getUsername()));
+				username));
 		parametersBody.add(new BasicNameValuePair(OAuthConstants.PASSWORD,
-				oauthDetails.getPassword()));
+				password));
 
 		if (isValid(clientId)) {
 			parametersBody.add(new BasicNameValuePair(OAuthConstants.CLIENT_ID,
@@ -101,10 +99,6 @@ public class OAuthUtils {
 		if (isValid(clientSecret)) {
 			parametersBody.add(new BasicNameValuePair(
 					OAuthConstants.CLIENT_SECRET, clientSecret));
-		}
-		if (isValid(scope)) {
-			parametersBody.add(new BasicNameValuePair(OAuthConstants.SCOPE,
-					scope));
 		}
 
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -121,8 +115,8 @@ public class OAuthUtils {
 				// Add Basic Authorization header
 				post.addHeader(
 						OAuthConstants.AUTHORIZATION,
-						getBasicAuthorizationHeader(oauthDetails.getUsername(),
-								oauthDetails.getPassword()));
+						getBasicAuthorizationHeader(username,
+								password));
 				System.out.println("Retry with login credentials");
 				
 				try {
@@ -140,8 +134,7 @@ public class OAuthUtils {
 					post.addHeader(
 							OAuthConstants.AUTHORIZATION,
 							getBasicAuthorizationHeader(
-									oauthDetails.getClientId(),
-									oauthDetails.getClientSecret()));
+									"mobile","mobilesecret"));
 
 					try {
 						response.getEntity().consumeContent();
@@ -155,7 +148,7 @@ public class OAuthUtils {
 					if (code >= 400) {
 						throw new RuntimeException(
 								"Could not retrieve access token for user: "
-										+ oauthDetails.getUsername());
+										+ username);
 					}
 				}
 

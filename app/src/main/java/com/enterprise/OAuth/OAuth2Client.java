@@ -40,9 +40,5 @@ public class OAuth2Client {
 		return site;
 	}
 	
-	public Token getAccessToken() {
-		OAuth2Config oauthConfig = new OAuth2Config.OAuth2ConfigBuilder(username, password, clientId, clientSecret, site)
-			.grantType("password").build();
-		return OAuthUtils.getAccessToken(oauthConfig);
-	}
+
 }
