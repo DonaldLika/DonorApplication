@@ -14,7 +14,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:weightSum="2"
-        android:background="@color/white">
+        android:background="@color/textColorPrimary">
 
 
         <ImageView android:src="@drawable/app_icon"
@@ -59,8 +59,8 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="Sign In"
-            android:textColor="@color/white"
-            android:background="@color/shadow_red"
+            android:textColor="@color/textColorPrimary"
+            android:background="@color/colorPrimary"
             android:layout_gravity="center"
             />
 
