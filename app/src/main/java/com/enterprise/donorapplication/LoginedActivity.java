@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.enterprise.Session.SessionManager;
+import com.enterprise.ServerAccess.LoginUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +24,13 @@ public class LoginedActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private LoginUtil loginUtil;
     private int[] tabIcons = {
             R.drawable.ic_person_outline_black_24dp,
             R.drawable.ic_stay_primary_landscape_black_24dp,
             R.drawable.ic_mail_outline_black_24dp
     };
 
-    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +38,12 @@ public class LoginedActivity extends AppCompatActivity {
         setContentView(R.layout.logined);
 
 
-        session = new SessionManager(getApplicationContext());
+        loginUtil = new LoginUtil(getApplicationContext());
 
-        if (!session.isLoggedIn())
+        if (!loginUtil.isLogined())
         {
             this.logoutUser();
         }
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -123,8 +122,7 @@ public class LoginedActivity extends AppCompatActivity {
     }
 
     public  void logoutUser() {
-        session.setLogin(false,"null");
-        // Ktheu tek faqja faqja kryesore
+        loginUtil.Logout();
         Intent intent = new Intent(LoginedActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

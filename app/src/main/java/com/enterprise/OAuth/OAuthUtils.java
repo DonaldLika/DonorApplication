@@ -41,8 +41,7 @@ public class OAuthUtils {
 		
 		String resourceURL = client.getSite() + path;
 		HttpPost get = new HttpPost(resourceURL);
-		get.addHeader(OAuthConstants.AUTHORIZATION,
-				getAuthorizationHeaderForAccessToken(token.getAccessToken()));
+		get.addHeader(OAuthConstants.AUTHORIZATION, getAuthorizationHeaderForAccessToken(token.getAccessToken()));
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpResponse response = null;
 		String responseString = "";
@@ -59,7 +58,6 @@ public class OAuthUtils {
 			HttpEntity entity = response.getEntity();
 			responseString = EntityUtils.toString(entity, "UTF-8");
 			System.out.println(responseString);
-			//handleResponse(response);
 
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block

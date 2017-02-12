@@ -11,21 +11,14 @@ import android.util.Log;
 
 
 public class SessionManager {
-    // LogCat tag
+
     private static String TAG = SessionManager.class.getSimpleName();
-
     SharedPreferences pref;
-
     private Editor editor;
     private Context _context;
-
     int PRIVATE_MODE = 0;
-
     private static final String PREF_NAME = "AndroidHiveLogin";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-
-
-
 
     public SessionManager(Context context) {
         this._context = context;
@@ -34,19 +27,20 @@ public class SessionManager {
     }
 
 
-
-    public void setLogin(boolean isLoggedIn,String username) {
+    public void setLogin(boolean isLoggedIn,String username,String access_token) {
 
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
-
         editor.putString("username",username);
-
-        // commit changes
+        editor.putString("access_token",access_token);
         editor.commit();
-
         Log.d(TAG, "User login session modified!");
     }
 
+    public void logout()
+    {
+        editor.clear();
+        editor.commit();
+    }
 
 
     public boolean isLoggedIn(){
@@ -55,6 +49,10 @@ public class SessionManager {
     public String getUsername()
     {
         return pref.getString("username","null");
+    }
+    public String getToken()
+    {
+        return pref.getString("access_token","null");
     }
 
 

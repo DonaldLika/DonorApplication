@@ -4,7 +4,6 @@ package com.enterprise.donorapplication;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.enterprise.ServerAccess.DonationAccess;
+import com.enterprise.ServerAccess.LoginUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -23,23 +24,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 
 public class NotifyFragment extends Fragment implements OnMapReadyCallback{
-    private final static String SERVER_URL="serverIP";
 
     private Spinner city_sp;
     private Spinner blood_sp;
-    private Button shfaq;
+    Button msg;
     GoogleMap mGoogleMap;
     MapView mapView;
     View rootview;
@@ -48,22 +38,23 @@ public class NotifyFragment extends Fragment implements OnMapReadyCallback{
 
     ArrayAdapter<CharSequence> adapter;
     ArrayAdapter<CharSequence> adapter1;
-
+    private LoginUtil loginUtil;
 
 
     public NotifyFragment() {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        loginUtil=new LoginUtil(this.getActivity());
         rootview = inflater.inflate(R.layout.fragment_notify,container,false);
 
         city_sp = (Spinner) rootview.findViewById(R.id.spinner_city);
         blood_sp = (Spinner) rootview.findViewById(R.id.spinner_blood);
-        shfaq = (Button) rootview.findViewById(R.id.button_notify);
+        msg = (Button) rootview.findViewById(R.id.button_notify);
 
         //Spinner 1
         adapter = ArrayAdapter.createFromResource(getActivity(),R.array.country_array,android.R.layout.simple_spinner_item);
@@ -72,9 +63,7 @@ public class NotifyFragment extends Fragment implements OnMapReadyCallback{
         city_sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 city_value = city_sp.getSelectedItem().toString();
-
             }
 
             @Override
@@ -86,15 +75,11 @@ public class NotifyFragment extends Fragment implements OnMapReadyCallback{
         //Spinner 2
         adapter1 = ArrayAdapter.createFromResource(getActivity(),R.array.blood_array,android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         blood_sp.setAdapter(adapter1);
         blood_sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 blood_value = blood_sp.getSelectedItem().toString();
-
             }
 
             @Override
@@ -103,52 +88,23 @@ public class NotifyFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
-        shfaq.setOnClickListener(new View.OnClickListener() {
+        msg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sendMessage(blood_value,city_value);
+
+                if(DonationAccess.notifyArea(blood_value,city_value,loginUtil.getToken()))
+                {
+                    Toast.makeText(getActivity(), "Message sent", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "A problem occurred,try again!", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
 
         return rootview;
     }
 
-
-
-        //Dergimi i te dhenave ne server
-    private void sendMessage(String city,String bloodType) {
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(SERVER_URL);
-        String jsonStr = "{\"city\":\"" + city + "\",\"type\":\"" + bloodType + "\"}";
-        Log.v("##", " JSON to post:" + jsonStr);
-        try {
-            StringEntity se = new StringEntity(jsonStr);
-            httpPost.setEntity(se);
-            HttpResponse response = httpClient.execute(httpPost);
-            Log.v("###", "Respnse:" + response.toString());
-            showText("Successfully posted token");
-
-        } catch (ClientProtocolException e) {
-            showText("Unable to Post Token");
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            showText("Unable to Post Token");
-            e.printStackTrace();
-        } catch (IOException e) {
-            showText("Unable to Post Token");
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void showText(String message) {
-        Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    //Vendosja e hartes
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
