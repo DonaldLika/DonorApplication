@@ -43,7 +43,7 @@ public class LoginUtil {
 
     public boolean Login(String username,String password)
     {
-        HttpPost post = new HttpPost("http://localhost:8899/userauth/oauth/token");
+        HttpPost post = new HttpPost("http://192.168.1.4:8899/userauth/oauth/token");
         String clientId = "mobile";
         String clientSecret = "mobilesecret";
         List<BasicNameValuePair> parametersBody = new ArrayList<BasicNameValuePair>();

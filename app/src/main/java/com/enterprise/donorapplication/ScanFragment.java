@@ -21,7 +21,7 @@ public class ScanFragment extends Fragment  {
 
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
     private LoginUtil loginUtil;
-    Button scanButton;
+    private Button scanButton;
 
     public ScanFragment() {
 
@@ -31,7 +31,7 @@ public class ScanFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        loginUtil=new LoginUtil(this.getActivity());
+        loginUtil = new LoginUtil(getActivity());
         View rootview = inflater.inflate(R.layout.fragment_scan,container,false);
         scanButton = (Button) rootview.findViewById(R.id.button_scan);
 
@@ -41,15 +41,11 @@ public class ScanFragment extends Fragment  {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
 
+                    scanIntegrator.setPrompt("Scan");
+                    scanIntegrator.setCameraId(0);
+                    scanIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                     scanIntegrator.initiateScan();
-
-                }
-                catch(Exception e)
-                {
-                    showText("Problem! Try again!");
-                }
             }
         });
 
@@ -69,19 +65,19 @@ public class ScanFragment extends Fragment  {
         {
 
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (scanningResult.getContents() != null) {
+            if (scanningResult!= null) {
                 String qrStr = scanningResult.getContents();
 
                 if(DonationAccess.notifyDonor(qrStr,loginUtil.getToken()))
                 {
-                    showText("QR data send to server");
+                    showText(qrStr);
                 }
 
                 super.onActivityResult(requestCode, resultCode, data);
             }
             else
             {
-                showText("No QR scan data received");
+                showText("Nothing");
             }
 
         }

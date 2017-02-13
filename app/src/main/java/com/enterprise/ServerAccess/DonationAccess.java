@@ -20,7 +20,7 @@ public class DonationAccess{
 
     public static boolean notifyDonor(String qrCode,String tokenfromSession)  {
 
-        String resourceURL = "https://localhost:8020/data/";
+        String resourceURL = "https://192.168.1.4:8020/data/";
         HttpPost post = new HttpPost(resourceURL);
         post.addHeader(OAuthConstants.AUTHORIZATION,
                 getAuthorizationHeaderForAccessToken(tokenfromSession));
@@ -56,7 +56,7 @@ public class DonationAccess{
     }
 
     public static boolean notifyArea(String city,String bloodType,String tokenfromSession)  {
-        String resourceURL = "https://localhost:8020/areaNotify";
+        String resourceURL = "https://192.168.1.4:8020/areaNotify";
         HttpPost post = new HttpPost(resourceURL);
         post.addHeader(OAuthConstants.AUTHORIZATION,
                 getAuthorizationHeaderForAccessToken(tokenfromSession));
@@ -66,8 +66,8 @@ public class DonationAccess{
         HttpResponse response = null;
         int code = -1;
         try {
-            jsonBody.put("city",city);
-            jsonBody.put("bloodType",bloodType);
+            jsonBody.put("address",city);
+            jsonBody.put("bllodType",bloodType);
             StringEntity se = new StringEntity(jsonBody.toString());
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             post.setEntity(se);
@@ -88,6 +88,7 @@ public class DonationAccess{
             try {
                 response.getEntity().consumeContent();
             } catch (IOException e) {
+
             }
         }
         return false;
