@@ -77,7 +77,7 @@ public class OAuthUtils {
 	}
 
 	public static Token getAccessToken(String username,String password) {
-		HttpPost post = new HttpPost("http://192.168.0.53:8899/userauth/oauth/token");
+		HttpPost post = new HttpPost("https://mobileservices.herokuapp.com/mobileservices/oauth/token");
 		String clientId = "mobile";
 		String clientSecret = "mobilesecret";
 

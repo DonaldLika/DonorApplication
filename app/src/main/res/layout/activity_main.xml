@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:baselineAligned="false">
+    tools:ignore="ContentDescription">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp">
+
+    <ImageView
+        android:src="@drawable/banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Email Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="50dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:weightSum="1">
-
-
-        <ImageView android:src="@drawable/banner"
-            android:layout_width="356dp"
-            android:layout_height="144dp"
-            android:layout_marginBottom="24dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/imageView" />
-
-        <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <EditText android:id="@+id/input_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Username" />
-        </android.support.design.widget.TextInputLayout>
+            android:inputType="textPersonName"
+            android:hint="@string/username" />
+    </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+    <!-- Password Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <EditText android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Password" />
-        </android.support.design.widget.TextInputLayout>
+            android:inputType="textPassword"
+            android:hint="@string/password"/>
+    </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Sign In"
-            android:textColor="@color/textColorPrimary"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="center"
-            android:layout_weight="0.08" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/textColorPrimary"
+        android:background="@color/colorPrimary"
+        android:text="@string/sign_in"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="56dp"
-            android:id="@+id/loginErrorMsg"
-            android:layout_gravity="center"
-            android:textColor="#000000"
-            android:layout_below="@+id/btn_login"
-            android:layout_alignParentLeft="true"/>
+    <TextView
+        android:id="@+id/loginErrorMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
 
-    </LinearLayout>
+</LinearLayout>
 </ScrollView>

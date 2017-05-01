@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:baselineAligned="false"
     tools:context=".ScanFragment">
 
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@color/navigationBarColor"
             android:layout_centerHorizontal="true"
-            android:text="Need to scan a QR Code, click scan button"/>
+            android:gravity="center"
+            android:text="@string/qr_scan"/>
 
 
         <Button
@@ -26,11 +25,7 @@
             android:layout_centerVertical="true"
             android:textColor="@color/textColorPrimary"
             android:background="@color/colorPrimary"
-            android:text="Scan" />
-
-
-
-
+            android:text="@string/qr_scan_button" />
 
         </RelativeLayout>
 

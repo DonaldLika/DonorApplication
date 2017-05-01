@@ -13,17 +13,11 @@ import com.enterprise.Session.SessionManager;
 
 public class WelcomeFragment extends Fragment {
 
-    private TextView tv_view;
-    private SessionManager session;
+    TextView tv_view;
+    SessionManager session;
 
 
     public WelcomeFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override

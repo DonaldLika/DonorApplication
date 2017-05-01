@@ -20,7 +20,7 @@ public class DonationAccess{
 
     public static boolean notifyDonor(String qrCode,String tokenfromSession)  {
 
-        String resourceURL = "https://192.168.1.4:8020/data/";
+        String resourceURL = "https://localhost:8020/data/";
         HttpPost post = new HttpPost(resourceURL);
         post.addHeader(OAuthConstants.AUTHORIZATION,
                 getAuthorizationHeaderForAccessToken(tokenfromSession));
@@ -56,7 +56,7 @@ public class DonationAccess{
     }
 
     public static boolean notifyArea(String city,String bloodType,String tokenfromSession)  {
-        String resourceURL = "https://192.168.1.4:8020/areaNotify";
+        String resourceURL = "https://mobileservices.herokuapp.com/mobileservices/areaNotify";
         HttpPost post = new HttpPost(resourceURL);
         post.addHeader(OAuthConstants.AUTHORIZATION,
                 getAuthorizationHeaderForAccessToken(tokenfromSession));
@@ -66,16 +66,17 @@ public class DonationAccess{
         HttpResponse response = null;
         int code = -1;
         try {
-            jsonBody.put("address",city);
-            jsonBody.put("bllodType",bloodType);
+            jsonBody.put("cityName",city);
+            jsonBody.put("bloodType",bloodType);
             StringEntity se = new StringEntity(jsonBody.toString());
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             post.setEntity(se);
             response = httpClient.execute(post);
-            code = response.getStatusLine().getStatusCode();
-            if(code==200)
-            {
-                return true;
+            if(response!=null) {
+                code = response.getStatusLine().getStatusCode();
+                if (code == 200) {
+                    return true;
+                }
             }
         } catch (ClientProtocolException e) {
 

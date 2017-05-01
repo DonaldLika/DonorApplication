@@ -23,11 +23,11 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText _usernameText;
-    private EditText _passwordText;
-    private Button _loginButton;
-    private TextView loginErrorMsg;
-    private LoginUtil loginUtil;
+    EditText _usernameText;
+    EditText _passwordText;
+    Button _loginButton;
+    TextView loginErrorMsg;
+    LoginUtil loginUtil;
 
     public MainActivity() {
 
@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         _usernameText=(EditText)findViewById(R.id.input_username);
         _passwordText=(EditText)findViewById(R.id.input_password);
         _loginButton=(Button)findViewById(R.id.btn_login);
-        loginErrorMsg=(TextView) findViewById(R.id.loginErrorMsg);
+        loginErrorMsg=(TextView)findViewById(R.id.loginErrorMsg);
 
-        loginUtil = new LoginUtil(getApplicationContext());
+       loginUtil = new LoginUtil(getApplicationContext());
 
         if (loginUtil.isLogined()) {
             Intent intent = new Intent(MainActivity.this, LoginedActivity.class);
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        @Override
-        protected void onPostExecute(Boolean th){
+         @Override
+       protected void onPostExecute(Boolean th){
 
             if(th){
                 nDialog.dismiss();
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private class ProcessLogin extends AsyncTask<String, String, Boolean> {
+   private class ProcessLogin extends AsyncTask<String, String, Boolean> {
 
         private ProgressDialog pDialog;
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             _passwordText.setError("Enter a valid password");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            _usernameText.setError(null);
         }
 
         return valid;

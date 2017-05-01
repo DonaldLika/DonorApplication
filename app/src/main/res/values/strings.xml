@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">DonorApplication</string>
     <string name="ic_power_settings_new_black_24dp">Logout</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="blood_text">Someone needs blood?</string>
+    <string name="city_selection">Select city</string>
+    <string name="notify">Notify</string>
+    <string name="blood_type">Select blood type</string>
+    <string name="qr_scan">Need to scan a QR Code, click scan button</string>
+    <string name="qr_scan_button">Scan</string>
 
     <string-array name="blood_array">
         <item>A+</item>
@@ -14,9 +23,9 @@
     </string-array>
 
     <string-array name="country_array">
-        <item>Tirana</item>
+        <item>Berat</item>
         <item>Durresi</item>
-        <item>Elbasani</item>
+        <item>Elbasan</item>
         <item>Korca</item>
         <item>Kruja</item>
         <item>Vlora</item>
@@ -29,5 +38,8 @@
         <item>Lezha</item>
         <item>Durres</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>
